@@ -1,0 +1,3 @@
+obsws-python
+fastapi
+uvicorn[standard]
