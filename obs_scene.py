@@ -19,12 +19,9 @@ class SceneSection:
             try:
                 self.req_client.set_current_program_scene(self.current_scene)
             except OBSSDKRequestError as e:
-                return ("Error", ErrorContent(message=str(e), reason=self.error_code_to_reason(e.code)))
+                return ("Error", ErrorContent.from_error(e))
 
         return ("OK", body)
-    
-    def error_code_to_reason(self, code) -> str:
-        if code == 600:
-            return "ResourceNotFound"
+
 
 scene_section = SceneSection(obs_req_client, obs_req_client.get_current_program_scene().scene_name)

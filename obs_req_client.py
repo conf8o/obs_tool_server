@@ -1,9 +1,20 @@
 import obsws_python as obs
-from typing import TypedDict
-
-
-class ErrorContent(TypedDict):
-    message: str
-    reason: str
+from obsws_python.error import OBSSDKRequestError
+from pydantic import BaseModel
 
 obs_req_client = obs.ReqClient()
+
+class ErrorContent(BaseModel):
+    message: str
+    reason: str
+    
+    @staticmethod
+    def from_error(error: OBSSDKRequestError) -> 'ErrorContent':
+        return ErrorContent(message=str(error), reason=error_code_to_reason(error.code))
+    
+
+
+def error_code_to_reason(code) -> str:
+    if code == 600:
+        return "ResourceNotFound"
+    
