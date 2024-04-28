@@ -10,7 +10,6 @@ class MutationBoby(BaseModel):
 
 @dataclass
 class SceneSection:
-
     req_client: obs.ReqClient
     current_scene: str | None
 

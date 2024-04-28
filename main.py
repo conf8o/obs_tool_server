@@ -13,7 +13,7 @@ class SceneSectionError(Exception):
         self.error = error
 
 @app.exception_handler(SceneSectionError)
-def scene_section_request(_, exc: SceneSectionError):
+def handle_scene_section_exception(_, exc: SceneSectionError):
     error = exc.error
     if error["reason"] == "ResourceNotFound":
         return JSONResponse(status_code=400, content={"request_body": exc.request.model_dump_json(), "error_content": error})
